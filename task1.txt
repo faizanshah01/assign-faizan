@@ -1,0 +1,12 @@
+On Linux:
+1) Press [ctrl+alt+T] which will open the terminal.
+2) Create the file on your home direcotry with any preferred name using the vim command.
+3) Add the code on that file and save it. Ater that exit the file.
+4) Then run the script using the bash command. For example, if the file name is task1.sh then the command will be following:
+bash task1.sh
+
+On MacOS:
+1) Click the Launchpad icon in the Dock, type Terminal in the search field, then click Terminal.
+2) Create the file on your home directory with any preferred name using the vim command.
+3) Add the code on the file and save it. After that exit the file.
+4) 

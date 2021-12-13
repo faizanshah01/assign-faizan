@@ -1,0 +1,31 @@
+Important metrics for alerts on SSL Offloading Server:
+
+1) CPU load (SSL-Offloading is CPU sensitive process).
+2) Increase in file descriptor (Slower responses and higher wait time will cause high FD's on server).
+3) TCP Open Connections (TCP Connections open (Internet<->Proxy<->Backend)).
+4) SSL Certificate Expiry on Proxy Server.
+5) Memory Free (Free memory on the server).
+6) SSL-Offloading Proxy Server Process Aliveness.
+7) CPU% used vs free and total. Load averages across 5,10 and 15 minute averages
+8) System Memory used vs free and total/paging
+9) Disk I/O read/write requests/sec, await – average time to service a request in ms
+10) Network traffic. bytes in/out, rx/tx, number of packets recieved/dropped on an interface, ping latenices,
+
+For ssl offloading the following important metrics:
+
+1) Inbound Traffic
+2) Outbound Traffic
+3) Open Connections
+4) New Connections per second
+5) Closed connections per second
+6) RTT (between client and proxy if possible[read below])
+7) SSl connect times
+8) The most obvious challenge of measuring https proxies is that when resolving the DNS name of the webserver, the client connects to the proxy and the proxy does the DNS resolution and connects to the webserver. At this point, it sends a message back to the client indicating that a connection has been established. The client now begins the SSL handshake, which is tunneled through the proxy’s open connection to the webserver. The SSL time is measured as the time from when the “CONNECT” message is sent until the SSL handshake is completed.. So, when making an HTTPS request, these values now become part of the SSL time and not the connection(wait) time. Hence this gets a lil tricky to monitor
+
+Challenges of SSL-Offloading Proxy Server Monitoring :
+
+1) Compatibility metrics for clients: In some cases, the application is not compatible at all with SSL offloading. How to differentiate those clients ?
+2) HTTPS -> HTTP decryption inspection : HTTP inspection (When encrypted request decrypted by SSL-Offloading server) is difficult to choose (for which http requests)?. Hackers are using the SSL/TLS protocols as a tool to obfuscate their attack payloads. A security device may be able to identify a cross-site scripting or SQL injection attack in plaintext, but if the same attack is encrypted using SSL/TLS, the attack will go through unless it has been decrypted first for inspection.
+3) Key Sizes of Requests : As key sizes increases SSL processing will be CPU intensive. How to measure Key sizes ?
+4) Internet Facing Firewall Monitoring : Catch Security Threats, DDoS attacks , Spoofing
+Monitoring of Monitoring and HA of monitoring itself : Its always challenge.
